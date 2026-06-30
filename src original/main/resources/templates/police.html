@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:replace="cabecalho :: head"></div>
+
+    <title>Crud Manager - Police</title>
+</head>
+<body>
+
+<div class="container my-2">
+
+    <h1>Police Officers</h1>
+
+    <div>
+        <a class="btn btn-primary btn-sm mb-3 float-right"
+           th:href="@{/police/form}">
+            Add Police Officer
+        </a>
+    </div>
+
+    <table class="table table-striped table-responsive-md">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Rank</th>
+                <th>CPF</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="police : ${police}">
+                <td th:text="${police.name}"></td>
+                <td th:text="${police.rank}"></td>
+                <td th:text="${police.cpf}"></td>
+                <td th:text="${police.email}"></td>
+
+                <td>
+                    <a class="btn btn-primary"
+                       th:href="@{/police/{id}(id=${police.id})}">
+                        Edit
+                    </a>
+
+                    <a class="btn btn-danger"
+                       th:href="@{/police/delete/{id}(id=${police.id})}">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>

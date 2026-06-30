@@ -8,8 +8,8 @@
 		<version>4.0.7</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ifsuldeminas.edu.br</groupId>
-	<artifactId>multas</artifactId>
+	<groupId>br.edu.ifsuldeminas.mch.webii.crudmanager</groupId>
+	<artifactId>spring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name/>
 	<description/>
