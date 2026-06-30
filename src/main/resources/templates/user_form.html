@@ -8,6 +8,7 @@
 </head>
 
 <body>
+	<div th:replace="cabecalho :: nav"></div>
 	<div class="container my-2">
 		<h2>Usuário</h2>
 		<form th:action="@{/users/save}" 

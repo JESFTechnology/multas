@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ import br.edu.ifsuldeminas.mch.webii.crudmanager.spring.model.entities.Car;
 import br.edu.ifsuldeminas.mch.webii.crudmanager.spring.model.entities.Police;
 import br.edu.ifsuldeminas.mch.webii.crudmanager.spring.model.repositories.CarRepository;
 import jakarta.validation.Valid;
-
+@Controller
 public class CarController {
 
     @Autowired
@@ -25,7 +26,7 @@ public class CarController {
     public String listCar(Model model) {
 
         List<Car> car = carRepository.findAll();
-        model.addAttribute("cars", car);
+        model.addAttribute("carros", car);
 
         return "cars.html";
     }
@@ -35,7 +36,7 @@ public class CarController {
         return "cars_form";
     }
 
-    @PostMapping("/car/save")
+    @PostMapping("/cars/save")
     public String carSave(@ModelAttribute("cars") @Valid Car car,
                              BindingResult errors) {
 

@@ -32,7 +32,7 @@ public class Car {
 
     @Min(value = 1900, message = "Ano inválido.")
     @Max(value = 2500, message = "Ano inválido.")
-    private int year;
+    private int manufactureYear;
 
     public Car() {
     }
@@ -41,7 +41,7 @@ public class Car {
         this.id = id;
         setLicensePlate("");
         setChassis("");
-        setYear(0);
+        setManufactureYear(1900);
     }
 
     public Integer getId() {
@@ -76,12 +76,12 @@ public class Car {
         this.chassis = chassis;
     }
 
-    public int getYear() {
-        return year;
+    public int getManufactureYear() {
+        return manufactureYear;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setManufactureYear(int manufactureYear) {
+        this.manufactureYear = manufactureYear;
     }
 
 }

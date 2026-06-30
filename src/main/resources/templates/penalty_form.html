@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:replace="cabecalho :: head"></div>
+    <title>Crud Manager - Penalty</title>
+</head>
+
+<body>
+<div th:replace="cabecalho :: nav"></div>
+    <div class="container my-2">
+        <h2>Penalty</h2>
+
+        <form th:action="@{/penalties/save}"
+              method="POST"
+              th:object="${penalty}">
+
+            <input type="hidden" id="id" th:field="*{id}">
+
+            <label>Car</label>
+            <span class="text-danger"
+                  th:if="${#fields.hasErrors('car')}"
+                  th:errors="*{car}">
+            </span>
+            <select class="form-control mb-4 col-4"
+                    th:field="*{car}">
+                <option th:each="car : ${cars}"
+                        th:value="${car.id}"
+                        th:text="${car.licensePlate}">
+                </option>
+            </select>
+
+            <span class="text-danger"
+                  th:if="${#fields.hasErrors('cost')}"
+                  th:errors="*{cost}">
+            </span>
+            <input type="number"
+                   placeholder="Cost"
+                   class="form-control mb-4 col-4"
+                   th:field="*{cost}">
+
+            <span class="text-danger"
+                  th:if="${#fields.hasErrors('location')}"
+                  th:errors="*{location}">
+            </span>
+            <input type="text"
+                   placeholder="Location"
+                   class="form-control mb-4 col-4"
+                   th:field="*{location}">
+
+            <label>Police Officer</label>
+            <span class="text-danger"
+                  th:if="${#fields.hasErrors('policeman')}"
+                  th:errors="*{policeman}">
+            </span>
+            <select class="form-control mb-4 col-4"
+                    th:field="*{policeman}">
+                <option th:each="police : ${police}"
+                        th:value="${police.id}"
+                        th:text="${police.name}">
+                </option>
+            </select>
+
+            <button type="submit" class="btn btn-info col-2">
+                Save
+            </button>
+
+        </form>
+
+        <hr>
+
+        <a th:href="@{/penalties}">
+            Penalties
+        </a>
+
+    </div>
+</body>
+</html>

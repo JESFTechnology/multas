@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:replace="cabecalho :: head"></div>
+    <title>Crud Manager - Police</title>
+</head>
+
+<body>
+	<div th:replace="cabecalho :: nav"></div>
+    <div class="container my-2">
+        <h2>Police Officer</h2>
+
+        <form th:action="@{/police/save}"
+              method="POST"
+              th:object="${police}">
+
+            <input type="hidden" id="id" th:field="*{id}">
+
+            <span class="text-danger"
+                  th:if="${#fields.hasErrors('name')}"
+                  th:errors="*{name}">
+            </span>
+            <input type="text"
+                   placeholder="Name"
+                   class="form-control mb-4 col-4"
+                   th:field="*{name}">
+
+            <span class="text-danger"
+                  th:if="${#fields.hasErrors('rank')}"
+                  th:errors="*{rank}">
+            </span>
+            <input type="text"
+                   placeholder="Rank"
+                   class="form-control mb-4 col-4"
+                   th:field="*{rank}">
+
+            <span class="text-danger"
+                  th:if="${#fields.hasErrors('cpf')}"
+                  th:errors="*{cpf}">
+            </span>
+            <input type="text"
+                   placeholder="CPF"
+                   class="form-control mb-4 col-4"
+                   th:field="*{cpf}">
+
+            <span class="text-danger"
+                  th:if="${#fields.hasErrors('email')}"
+                  th:errors="*{email}">
+            </span>
+            <input type="email"
+                   placeholder="Email"
+                   class="form-control mb-4 col-4"
+                   th:field="*{email}">
+
+            <span class="text-danger"
+                  th:if="${#fields.hasErrors('password')}"
+                  th:errors="*{password}">
+            </span>
+            <input type="password"
+                   placeholder="Password"
+                   class="form-control mb-4 col-4"
+                   th:field="*{password}">
+
+            <button type="submit" class="btn btn-info col-2">
+                Save
+            </button>
+
+        </form>
+
+        <hr>
+
+        <a th:href="@{/police}">
+            Police Officers
+        </a>
+
+    </div>
+</body>
+</html>
