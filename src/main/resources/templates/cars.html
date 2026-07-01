@@ -15,7 +15,9 @@
 <div class="container my-2">
 
     <h1>Carros</h1>
-
+	<div th:if="${erro}" class="alert alert-danger">
+	    <span th:text="${erro}"></span>
+	</div>
     <div>
         <a class="btn btn-primary btn-sm mb-3 float-right"
            th:href="@{/cars/form}">

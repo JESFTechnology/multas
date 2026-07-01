@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import br.edu.ifsuldeminas.mch.webii.crudmanager.spring.model.entities.Address;
 import br.edu.ifsuldeminas.mch.webii.crudmanager.spring.model.entities.User;
 import br.edu.ifsuldeminas.mch.webii.crudmanager.spring.model.repositories.AdrressRepository;
+import br.edu.ifsuldeminas.mch.webii.crudmanager.spring.model.repositories.CarRepository;
 import br.edu.ifsuldeminas.mch.webii.crudmanager.spring.model.repositories.UserRepository;
 import jakarta.validation.Valid;
 
@@ -23,6 +24,9 @@ public class UserController {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private CarRepository carRepository;
 	
 	@Autowired
 	private AdrressRepository addressRepository;
@@ -74,19 +78,32 @@ public class UserController {
 	}
 	
 	@GetMapping("/users/delete/{id}")
-	public String userDelete(@PathVariable("id") 
-	                         Integer id) {
-		
-		Optional<User> userOpt = userRepository.findById(id);
-
-		if (userOpt.isPresent()) {
-			Address address = userOpt.get().getAddress();
-			
-			userRepository.delete(userOpt.get());
-			addressRepository.delete(address);
-        }
+	public String userDelete(@PathVariable("id") Integer id,
+	                         Model model) {
 
 		
-		return "redirect:/users";
+	    Optional<User> userOpt = userRepository.findById(id);
+
+	    if (userOpt.isPresent()) {
+
+	        User user = userOpt.get();
+
+	        // Verifica se há carros vinculados ao usuário
+	        if (carRepository.existsByUser(user)) {
+	            model.addAttribute("erro",
+	                "Essa pessoa ainda tem um carro vinculado ao CPF dela. Passe o carro para outra pessoa ou exclua-o antes.");
+
+	            model.addAttribute("usuarios", userRepository.findAll());
+
+	            return "users";
+	        }
+
+	        Address address = user.getAddress();
+
+	        userRepository.delete(user);
+	        addressRepository.delete(address);
+	    }
+
+	    return "redirect:/users";
 	}
 }

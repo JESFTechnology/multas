@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import br.edu.ifsuldeminas.mch.webii.crudmanager.spring.model.entities.Car;
-import br.edu.ifsuldeminas.mch.webii.crudmanager.spring.model.entities.Police;
 import br.edu.ifsuldeminas.mch.webii.crudmanager.spring.model.repositories.CarRepository;
+import br.edu.ifsuldeminas.mch.webii.crudmanager.spring.model.repositories.PenaltyRepository;
 import br.edu.ifsuldeminas.mch.webii.crudmanager.spring.model.repositories.UserRepository;
 import jakarta.validation.Valid;
 
@@ -23,6 +23,9 @@ public class CarController {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private PenaltyRepository penaltyRepository;
 
     @Autowired
     private CarRepository carRepository;
@@ -73,9 +76,27 @@ public class CarController {
     }
 
     @GetMapping("/cars/delete/{id}")
-    public String carDelete(@PathVariable Integer id) {
+    public String carDelete(@PathVariable Integer id,
+                            Model model) {
 
-        carRepository.findById(id).ifPresent(carRepository::delete);
+        Optional<Car> carOpt = carRepository.findById(id);
+
+        if (carOpt.isPresent()) {
+
+            Car car = carOpt.get();
+
+            if (penaltyRepository.existsByCar(car)) {
+
+                model.addAttribute("erro",
+                        "Este carro possui multas cadastradas. Exclua as multas antes de remover o veículo.");
+
+                model.addAttribute("carros", carRepository.findAll());
+
+                return "cars";
+            }
+
+            carRepository.delete(car);
+        }
 
         return "redirect:/cars";
     }

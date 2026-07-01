@@ -1,84 +1,60 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-    <div th:replace="cabecalho :: head"></div>
-    <title>Crud Manager - Policial</title>
+      <div th:replace="cabecalho :: head"></div>
+      <title>Crud Manager - Policial</title>
 </head>
 
 <body>
 
-    <div th:replace="cabecalho :: nav"></div>
+      <div th:replace="cabecalho :: nav"></div>
 
-    <div class="container my-2">
+      <div class="container my-2">
 
-        <h2>Cadastro de Policial</h2>
+            <h2>Cadastro de Policial</h2>
 
-        <form th:action="@{/police/save}"
-              method="POST"
-              th:object="${police}">
+            <form th:action="@{/police/save}" method="POST" th:object="${police}">
 
-            <input type="hidden" id="id" th:field="*{id}">
+                  <input type="hidden" id="id" th:field="*{id}">
 
-            <span class="text-danger"
-                  th:if="${#fields.hasErrors('name')}"
-                  th:errors="*{name}">
-            </span>
-            <input type="text"
-                   placeholder="Nome"
-                   class="form-control mb-4 col-4"
-                   th:field="*{name}">
+                  <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                  </span>
+                  <input type="text" placeholder="Nome" class="form-control mb-4 col-4" th:field="*{name}">
 
-            <span class="text-danger"
-                  th:if="${#fields.hasErrors('rank')}"
-                  th:errors="*{rank}">
-            </span>
-            <input type="text"
-                   placeholder="Patente"
-                   class="form-control mb-4 col-4"
-                   th:field="*{rank}">
+                  <span class="text-danger" th:if="${#fields.hasErrors('rank')}" th:errors="*{rank}">
+                  </span>
+                  <input type="text" placeholder="Patente" class="form-control mb-4 col-4" th:field="*{rank}">
 
-            <span class="text-danger"
-                  th:if="${#fields.hasErrors('cpf')}"
-                  th:errors="*{cpf}">
-            </span>
-            <input type="text"
-                   placeholder="CPF"
-                   class="form-control mb-4 col-4"
-                   th:field="*{cpf}">
+                  <span class="text-danger" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}">
+                  </span>
+                  <input type="text" placeholder="CPF" class="form-control mb-4 col-4" th:field="*{cpf}">
 
-            <span class="text-danger"
-                  th:if="${#fields.hasErrors('email')}"
-                  th:errors="*{email}">
-            </span>
-            <input type="email"
-                   placeholder="E-mail"
-                   class="form-control mb-4 col-4"
-                   th:field="*{email}">
+                  <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                  </span>
+                  <input type="email" placeholder="E-mail" class="form-control mb-4 col-4" th:field="*{email}">
 
-            <span class="text-danger"
-                  th:if="${#fields.hasErrors('password')}"
-                  th:errors="*{password}">
-            </span>
-            <input type="password"
-                   placeholder="Senha"
-                   class="form-control mb-4 col-4"
-                   th:field="*{password}">
+                  <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                  </span>
 
-            <button type="submit" class="btn btn-info col-2">
-                Salvar
-            </button>
+                  <input type="password" th:field="*{password}" class="form-control mb-4 col-4"
+                        th:placeholder="${police.id == null ? 'Senha' : 'Nova senha (deixe em branco para manter a atual)'}">
 
-        </form>
 
-        <hr>
+                  <button type="submit" class="btn btn-info col-2">
+                        Salvar
+                  </button>
 
-        <a th:href="@{/police}">
-            Voltar para Policiais
-        </a>
+            </form>
 
-    </div>
+            <hr>
+
+            <a th:href="@{/police}">
+                  Voltar para Policiais
+            </a>
+
+      </div>
 
 </body>
+
 </html>
