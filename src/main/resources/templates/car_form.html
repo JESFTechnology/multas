@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:replace="cabecalho :: head"></div>
+    <title>Crud Manager - Carro</title>
+</head>
+
+<body>
+    <div th:replace="cabecalho :: nav"></div>
+
+    <div class="container my-2">
+
+        <h2>Cadastro de Carro</h2>
+
+        <form th:action="@{/cars/save}" method="POST" th:object="${car}">
+
+            <input type="hidden" id="id" th:field="*{id}">
+
+            <span class="text-danger" th:if="${#fields.hasErrors('licensePlate')}" th:errors="*{licensePlate}">
+            </span>
+            <input type="text" placeholder="Placa" class="form-control mb-4 col-4" th:field="*{licensePlate}">
+
+            <span class="text-danger" th:if="${#fields.hasErrors('chassis')}" th:errors="*{chassis}">
+            </span>
+            <input type="text" placeholder="Chassi" class="form-control mb-4 col-4" th:field="*{chassis}">
+
+            <span class="text-danger" th:if="${#fields.hasErrors('manufactureYear')}" th:errors="*{manufactureYear}">
+            </span>
+            <input type="number" placeholder="Ano de fabricação" min="1900" max="2100" class="form-control mb-4 col-4"
+                th:field="*{manufactureYear}">
+
+            <label>Proprietário</label>
+
+            <span class="text-danger" th:if="${#fields.hasErrors('user')}" th:errors="*{user}">
+            </span>
+
+            <select class="form-control mb-4 col-4" th:field="*{user}">
+                <option value="">Selecione um proprietário</option>
+
+                <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}">
+                </option>
+            </select>
+
+            <button type="submit" class="btn btn-info col-2">
+                Salvar
+            </button>
+
+        </form>
+
+        <hr>
+
+        <a th:href="@{/cars}">
+            Voltar para Carros
+        </a>
+
+    </div>
+</body>
+
+</html>

@@ -15,9 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import br.edu.ifsuldeminas.mch.webii.crudmanager.spring.model.entities.Car;
 import br.edu.ifsuldeminas.mch.webii.crudmanager.spring.model.entities.Police;
 import br.edu.ifsuldeminas.mch.webii.crudmanager.spring.model.repositories.CarRepository;
+import br.edu.ifsuldeminas.mch.webii.crudmanager.spring.model.repositories.UserRepository;
 import jakarta.validation.Valid;
+
 @Controller
 public class CarController {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private CarRepository carRepository;
@@ -32,16 +37,23 @@ public class CarController {
     }
 
     @GetMapping("/cars/form")
-    public String carForm(@ModelAttribute("cars") Police police) {
-        return "cars_form";
+    public String carForm(@ModelAttribute("car") Car car,
+            Model model) {
+
+        model.addAttribute("users", userRepository.findAll());
+
+        return "car_form";
     }
 
     @PostMapping("/cars/save")
-    public String carSave(@ModelAttribute("cars") @Valid Car car,
-                             BindingResult errors) {
+    public String carSave(@ModelAttribute("car") @Valid Car car,
+            BindingResult errors,
+            Model model) {
 
-        if (errors.hasErrors())
-            return "cars_form";
+        if (errors.hasErrors()) {
+            model.addAttribute("users", userRepository.findAll());
+            return "car_form";
+        }
 
         carRepository.save(car);
 
@@ -49,19 +61,21 @@ public class CarController {
     }
 
     @GetMapping("/cars/{id}")
-    public String carUpdate(@PathVariable Integer id, Model model) {
+    public String carUpdate(@PathVariable Integer id,
+            Model model) {
 
         Optional<Car> car = carRepository.findById(id);
 
-        model.addAttribute("cars", car.orElse(null));
+        model.addAttribute("car", car.orElse(null));
+        model.addAttribute("users", userRepository.findAll());
 
-        return "cars_form";
+        return "car_form";
     }
 
     @GetMapping("/cars/delete/{id}")
     public String carDelete(@PathVariable Integer id) {
 
-    		carRepository.findById(id).ifPresent(carRepository::delete);
+        carRepository.findById(id).ifPresent(carRepository::delete);
 
         return "redirect:/cars";
     }

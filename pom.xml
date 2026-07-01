@@ -6,9 +6,8 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.5.15</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>br.edu.ifsuldeminas.mch.webii.crudmanager</groupId>
+		<relativePath/> </parent>
+	<groupId>br.edu.ifsuldeminas.mch.webii.crudmanager.spring</groupId>
 	<artifactId>Crud-Manager-com-Spring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name/>
@@ -42,6 +41,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -58,11 +62,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>br.edu.ifsuldeminas.mch</groupId>
-			<artifactId>introducao</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

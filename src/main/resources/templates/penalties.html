@@ -1,41 +1,47 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <div th:replace="cabecalho :: head"></div>
-
-    <title>Crud Manager - Penalties</title>
+    <title>Crud Manager - Multas</title>
 </head>
+
 <body>
+
 <div th:replace="cabecalho :: nav"></div>
+
 <div class="container my-2">
 
-    <h1>Penalties</h1>
+    <h1>Multas</h1>
 
     <div>
         <a class="btn btn-primary btn-sm mb-3 float-right"
            th:href="@{/penalties/form}">
-            Add Penalty
+            Adicionar Multa
         </a>
     </div>
 
     <table class="table table-striped table-responsive-md">
+
         <thead>
             <tr>
-                <th>License Plate</th>
-                <th>Cost</th>
-                <th>Location</th>
-                <th>Policeman</th>
-                <th>Actions</th>
+                <th>Placa</th>
+                <th>Valor (R$)</th>
+                <th>Local</th>
+                <th>Policial</th>
+                <th>Ações</th>
             </tr>
         </thead>
 
         <tbody>
+
             <tr th:each="penalty : ${penalties}">
 
                 <td th:text="${penalty.car.licensePlate}"></td>
 
-                <td th:text="${penalty.cost}"></td>
+                <td th:text="${#numbers.formatDecimal(penalty.cost, 1, 'POINT', 2, 'COMMA')}"></td>
 
                 <td th:text="${penalty.location}"></td>
 
@@ -44,16 +50,17 @@
                 <td>
                     <a class="btn btn-primary"
                        th:href="@{/penalties/{id}(id=${penalty.id})}">
-                        Edit
+                        Alterar
                     </a>
 
                     <a class="btn btn-danger"
                        th:href="@{/penalties/delete/{id}(id=${penalty.id})}">
-                        Delete
+                        Excluir
                     </a>
                 </td>
 
             </tr>
+
         </tbody>
 
     </table>

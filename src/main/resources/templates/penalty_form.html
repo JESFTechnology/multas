@@ -4,76 +4,92 @@
 
 <head>
     <div th:replace="cabecalho :: head"></div>
-    <title>Crud Manager - Penalty</title>
+    <title>Crud Manager - Multa</title>
 </head>
 
 <body>
+
 <div th:replace="cabecalho :: nav"></div>
-    <div class="container my-2">
-        <h2>Penalty</h2>
 
-        <form th:action="@{/penalties/save}"
-              method="POST"
-              th:object="${penalty}">
+<div class="container my-2">
 
-            <input type="hidden" id="id" th:field="*{id}">
+    <h2>Cadastro de Multa</h2>
 
-            <label>Car</label>
-            <span class="text-danger"
-                  th:if="${#fields.hasErrors('car')}"
-                  th:errors="*{car}">
-            </span>
-            <select class="form-control mb-4 col-4"
-                    th:field="*{car}">
-                <option th:each="car : ${cars}"
-                        th:value="${car.id}"
-                        th:text="${car.licensePlate}">
-                </option>
-            </select>
+    <form th:action="@{/penalties/save}"
+          method="POST"
+          th:object="${penalty}">
 
-            <span class="text-danger"
-                  th:if="${#fields.hasErrors('cost')}"
-                  th:errors="*{cost}">
-            </span>
-            <input type="number"
-                   placeholder="Cost"
-                   class="form-control mb-4 col-4"
-                   th:field="*{cost}">
+        <input type="hidden" id="id" th:field="*{id}">
 
-            <span class="text-danger"
-                  th:if="${#fields.hasErrors('location')}"
-                  th:errors="*{location}">
-            </span>
-            <input type="text"
-                   placeholder="Location"
-                   class="form-control mb-4 col-4"
-                   th:field="*{location}">
+        <label>Carro</label>
 
-            <label>Police Officer</label>
-            <span class="text-danger"
-                  th:if="${#fields.hasErrors('policeman')}"
-                  th:errors="*{policeman}">
-            </span>
-            <select class="form-control mb-4 col-4"
-                    th:field="*{policeman}">
-                <option th:each="police : ${police}"
-                        th:value="${police.id}"
-                        th:text="${police.name}">
-                </option>
-            </select>
+        <span class="text-danger"
+              th:if="${#fields.hasErrors('car')}"
+              th:errors="*{car}">
+        </span>
 
-            <button type="submit" class="btn btn-info col-2">
-                Save
-            </button>
+        <select class="form-control mb-4 col-4"
+                th:field="*{car}">
+            <option value="">Selecione um carro</option>
 
-        </form>
+            <option th:each="car : ${cars}"
+                    th:value="${car.id}"
+                    th:text="${car.licensePlate}">
+            </option>
+        </select>
 
-        <hr>
+        <span class="text-danger"
+              th:if="${#fields.hasErrors('cost')}"
+              th:errors="*{cost}">
+        </span>
 
-        <a th:href="@{/penalties}">
-            Penalties
-        </a>
+        <input type="number"
+               step="0.01"
+               min="0"
+               placeholder="Valor da multa"
+               class="form-control mb-4 col-4"
+               th:field="*{cost}">
 
-    </div>
+        <span class="text-danger"
+              th:if="${#fields.hasErrors('location')}"
+              th:errors="*{location}">
+        </span>
+
+        <input type="text"
+               placeholder="Local da infração"
+               class="form-control mb-4 col-4"
+               th:field="*{location}">
+
+        <label>Policial</label>
+
+        <span class="text-danger"
+              th:if="${#fields.hasErrors('policeman')}"
+              th:errors="*{policeman}">
+        </span>
+
+        <select class="form-control mb-4 col-4"
+                th:field="*{policeman}">
+            <option value="">Selecione um policial</option>
+
+            <option th:each="police : ${police}"
+                    th:value="${police.id}"
+                    th:text="${police.name}">
+            </option>
+        </select>
+
+        <button type="submit" class="btn btn-info col-2">
+            Salvar
+        </button>
+
+    </form>
+
+    <hr>
+
+    <a th:href="@{/penalties}">
+        Voltar para Multas
+    </a>
+
+</div>
+
 </body>
 </html>
