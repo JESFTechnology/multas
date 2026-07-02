@@ -33,12 +33,16 @@
 			       th:field="*{email}">
 			
 			<span class="text-danger"
-			      th:if="${#fields.hasErrors('gender')}"
-			      th:errors="*{gender}">
+				th:if="${#fields.hasErrors('gender')}"
+				th:errors="*{gender}">
 			</span>
-			<input type="text" placeholder="Gênero" 
-			       class="form-control mb-4 col-4"
-			       th:field="*{gender}">
+
+			<select class="form-control mb-4 col-4"
+					th:field="*{gender}">
+				<option value="">Selecione o gênero</option>
+				<option value="M">Masculino</option>
+				<option value="F">Feminino</option>
+			</select>
 			       
 			<span class="text-danger"
 			      th:if="${#fields.hasErrors('address.place')}"
